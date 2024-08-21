@@ -128,7 +128,7 @@ def get_shap_values(data):
     shap_values = dict(zip(features, [shap_values]))
     sorted_shap_values = {k: v for k, v in sorted(shap_values.items(),
                                                   key=lambda x: x[1])}
-    logging.log("info")
+    logging.info(sorted_shap_values)
     final_shap_values = {"title": "Shap Explainability", "x_axis_label": "Shap Values", "y_axis_label": "Features",
                          "rotated": True, "data": {sorted_shap_values}}
     return final_shap_values

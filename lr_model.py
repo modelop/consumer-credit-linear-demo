@@ -125,13 +125,13 @@ def get_bias_metrics(data):
 def get_shap_values(data):
     shap_values = explainer.shap_values(data.loc[:, features])
     shap_values = np.mean(abs(shap_values), axis=0).tolist()
-    logging.info(shap_values)
     shap_values = dict(zip(features, shap_values))
     sorted_shap_values = {k: v for k, v in sorted(shap_values.items(),
                                                   key=lambda x: x[1])}
-    logging.info(sorted_shap_values)
+    sorted_features, sorted_shap_values = zip(*sorted_shap_values.items())
+    # logging.info(sorted_shap_values)
     final_shap_values = {"title": "Shap Explainability", "x_axis_label": "Shap Values", "y_axis_label": "Features",
-                         "rotated": True, "data": {sorted_shap_values}}
+                         "rotated": True, "data": {"data": data}, "categories": sorted_features}
     return final_shap_values
 
 
@@ -161,3 +161,22 @@ def matrix_to_dicts(matrix, labels):
     for idx, label in enumerate(labels):
         cm.append(dict(zip(labels, matrix[idx, :].tolist())))
     return cm
+
+features = ["tax_liens", "log_credit_age", "rent_indicator", "log_loan_amnt", "dti", "log-annual_inc", "logit_int_rate"]
+data = [
+0.0006581669337073759,
+0.01759932710533009,
+0.044749078982140825,
+0.051882046515654416,
+0.07009148330301444,
+0.18307948739794688,
+0.36711353933017377
+]
+shap_values = dict(zip(features, data))
+sorted_shap_values = {k: v for k, v in sorted(shap_values.items(),
+                                                  key=lambda x: x[1])}
+sorted_features, sorted_shap_values = zip(*sorted_shap_values.items())
+logging.info(sorted_shap_values)
+final_shap_values = {"title": "Shap Explainability", "x_axis_label": "Shap Values", "y_axis_label": "Features",
+                         "rotated": True, "data": {"data": data}, "categories": sorted_features}
+print(final_shap_values)

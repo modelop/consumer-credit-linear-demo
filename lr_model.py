@@ -125,6 +125,7 @@ def get_bias_metrics(data):
 def get_shap_values(data):
     shap_values = explainer.shap_values(data.loc[:, features])
     shap_values = np.mean(abs(shap_values), axis=0).tolist()
+    logging.info(shap_values)
     shap_values = dict(zip(features, shap_values))
     sorted_shap_values = {k: v for k, v in sorted(shap_values.items(),
                                                   key=lambda x: x[1])}

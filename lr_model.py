@@ -131,6 +131,7 @@ def get_shap_values(data):
     sorted_features, sorted_shap_values = zip(*sorted_shap_values.items())
     final_shap_values = {"title": "Shap Explainability", "x_axis_label": "Shap Values", "y_axis_label": "Features",
                          "rotated": True, "data": {"data1": data}, "categories": list(sorted_features)}
+    print(final_shap_values)
     return final_shap_values
 
 

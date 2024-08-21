@@ -78,7 +78,7 @@ def metrics(data):
        metrics['ROC'] = rc
        metrics['bias'] = get_bias_metrics(data)
 
-    metrics['drift_metrics'] = get_drift_metrics(data)
+    #metrics['drift_metrics'] = get_drift_metrics(data)
     metrics['shap'] = get_shap_values(data)
     yield metrics
 
@@ -121,7 +121,9 @@ def get_shap_values(data):
     shap_values = dict(zip(features, shap_values))
     sorted_shap_values = {k: v for k, v in sorted(shap_values.items(),
                                                   key=lambda x: x[1])}
-    return sorted_shap_values
+    final_shap_values = {"title": "Shap Explainability", "x_axis_label": "Shap Values", "y_axis_label": "Features",
+                         "rotated": true, "data": sorted_shap_values}
+    return final_shap_values
 
 def get_drift_metrics(data):
     num_of_renters = data.rent_indicator.sum()

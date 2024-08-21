@@ -122,7 +122,7 @@ def get_shap_values(data):
     sorted_shap_values = {k: v for k, v in sorted(shap_values.items(),
                                                   key=lambda x: x[1])}
     final_shap_values = {"title": "Shap Explainability", "x_axis_label": "Shap Values", "y_axis_label": "Features",
-                         "rotated": true, "data": sorted_shap_values}
+                         "rotated": True, "data": sorted_shap_values}
     return final_shap_values
 
 def get_drift_metrics(data):
